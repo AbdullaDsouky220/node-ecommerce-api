@@ -1,4 +1,12 @@
-node_modules/
+# npm debugging logs
+npm-debug.log*
 
+# project dependencies
+node_modules
+config.env
+# OSX folder attributes
+.DS_Store
 
-config.env/
+# temporary files
+*.tmp
+*~
