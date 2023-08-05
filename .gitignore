@@ -2,11 +2,8 @@
 npm-debug.log*
 
 # project dependencies
-node_modules
-config.env
+node_modules/
+config.env/
 # OSX folder attributes
 .DS_Store
 
-# temporary files
-*.tmp
-*~
