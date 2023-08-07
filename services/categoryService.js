@@ -6,10 +6,15 @@ const expressAsyncHandler = require("express-async-handler");
 //@access public
 exports.getCategory = expressAsyncHandler(
   async(req, res) => {
+    const limit=+req.query.limit || 5
+    const page=+req.query.page || 1
+    const skip=(page-1)*limit  
+
     const allCategories=await CategoryModel.find({}
-      )
+      ).skip(skip).limit(limit)
     res.status(200).json({
       results:allCategories.length,
+      page,
       data:allCategories
     });
   }
