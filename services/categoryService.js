@@ -32,6 +32,27 @@ exports.getCategory=expressAsyncHandler(
     })
   }
 )
+//@route put /api/v1/category:id
+//@desc for updating specific category by id
+//@access private
+exports.updateCategory=expressAsyncHandler(
+  async(req,res)=>{
+    const {id}=req.params
+    const {name}=req.body
+    const category=await CategoryModel.findOneAndUpdate(
+      {_id:id},
+      {name,slug:slugify(name)},
+      {new:true}
+    )
+    if(!category){
+      res.status(404).send(`${id}: this category is not found`)
+
+    }
+    res.status(200).json({
+      data:category
+    })
+  }
+)
 
 //@route POST /api/v1/category
 //@desc this route is for creating a category
