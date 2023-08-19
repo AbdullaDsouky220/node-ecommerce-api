@@ -21,6 +21,21 @@ dbConnection()
 //routes
 app.use('/api/v1/category',categoryRouter)
 
+//midlware for specific error handlling
+app.use((req,res,next)=>{
+  const err=new Error(  `we can not find this route now ${req.originalUrl}`)
+  next(err.message)
+})
+
+//golbal error handling middelware
+app.use((err,req,res,next)=>{
+  if(err)
+  {
+    res.status(400).json({err})
+  }
+ 
+})
+
 app.listen(process.env.PORT, () => {
   console.log("the app is running on port " + process.env.PORT);
 });

@@ -53,6 +53,20 @@ exports.updateCategory=expressAsyncHandler(
     })
   }
 )
+//@route delete /api/v1/category:id
+//@desc for deleting specific category by id
+//@access private
+exports.deleteCategory=expressAsyncHandler(
+  async(req,res)=>{
+    const {id}=req.params
+    const category=await CategoryModel.findByIdAndDelete(id)
+    if(!category){
+      res.status(404).send(`${id}: this category is not found`)
+
+    }
+    res.status(200).json('the category has been deleted successfully')
+  }
+)
 
 //@route POST /api/v1/category
 //@desc this route is for creating a category
