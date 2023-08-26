@@ -3,7 +3,8 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const dbConnection=require('./config/dbConfig')
-const categoryRouter=require('./routes/categoryRouter')
+const categoryRouter=require('./routes/categoryRouter');
+const ApiError = require("./utils/Errorapi");
 
 //config
 dotenv.config({
@@ -23,8 +24,7 @@ app.use('/api/v1/category',categoryRouter)
 
 //midlware for specific error handlling
 app.use((req,res,next)=>{
-  const err=new Error(  `we can not find this route now ${req.originalUrl}`)
-  next(err.message)
+  next(new ApiError( `we can not find this route now ${req.originalUrl}`,400))
 })
 
 //golbal error handling middelware
